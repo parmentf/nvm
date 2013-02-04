@@ -17,7 +17,7 @@ if [ ! -z "$(which unsetopt 2>/dev/null)" ]; then
 fi
 
 # Obtain nvm version from rc file
-function rc_nvm_version {
+rc_nvm_version () {
   if [ -e .nvmrc ]; then
         RC_VERSION=`cat .nvmrc | head -n 1`
     echo "Found .nvmrc files with version <$RC_VERSION>"
@@ -66,7 +66,7 @@ nvm_ls()
         return
     fi
     # If it looks like an explicit version, don't do anything funny
-    if [[ "$PATTERN" == v?*.?*.?* ]]; then
+    if [ "$PATTERN" = "v?*.?*.?*" ]; then
         VERSIONS="$PATTERN"
     else
         VERSIONS=`(cd $NVM_DIR; \ls -d v${PATTERN}* 2>/dev/null) | sort -t. -k 1.2,1n -k 2,2n -k 3,3n`
@@ -119,7 +119,7 @@ print_versions()
     local PADDED_VERSION=''
     for VERSION in $1; do
         PADDED_VERSION=`printf '%10s' $VERSION`
-        if [[ -d "$NVM_DIR/$VERSION" ]]; then
+        if [ -d "$NVM_DIR/$VERSION" ]; then
              PADDED_VERSION="\033[0;34m$PADDED_VERSION\033[0m"
         fi
         OUTPUT="$OUTPUT\n$PADDED_VERSION"
